@@ -1,4 +1,0 @@
-{
-    "argv":["python","-m","echokernel", "-f", "{connection_file}"],
-    "display_name":"Echo"
-}
