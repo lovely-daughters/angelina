@@ -9,3 +9,5 @@ I would like to extend this idea to the browser where I can remotely hook up a n
 I've tried reading js files as a string and passing that through selenium to chrome, but I have to develop in a separate file & variables aren't saved.
 
 I've tried the ijavascript kernel paired with chrome-remote-interface, however that experience was extremely janky.
+
+AFAIK, there isn't anything that works, so this is my attempt to create one.
