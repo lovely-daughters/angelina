@@ -11,7 +11,7 @@ class Angelina(Kernel):
         "mimetype": "application/javascript",
         "file_extension": ".js",
     }
-    banner = "Angelina Ajimu
+    banner = "Angelina Ajimu"
 
     def do_execute(
         self, code, silent, store_history=True, user_expressions=None, allow_stdin=False
