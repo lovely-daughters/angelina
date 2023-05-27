@@ -19,7 +19,7 @@ class Angelina(Kernel):
         if not silent:
             # stream_content = {"name": "stdout", "text": code}
             # self.send_response(self.iopub_socket, "stream", stream_content)
-            stream_content = {"name": "stdout", "text": "😭"}
+            stream_content = {"name": "stdout", "text": "😭SUZU😭"}
             self.send_response(self.iopub_socket, "stream", stream_content)
 
         return {
