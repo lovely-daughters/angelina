@@ -11,3 +11,10 @@ I've tried reading js files as a string and passing that through selenium to chr
 I've tried the ijavascript kernel paired with chrome-remote-interface, however that experience was extremely janky.
 
 AFAIK, there isn't anything that works, so this is my attempt to create one.
+
+```
+jupyter kernelspec install . --replace --name angelina
+
+
+jupyter kernelspec list
+```
