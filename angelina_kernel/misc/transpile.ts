@@ -6,3 +6,7 @@ function transpileTypeScriptToJavaScript(code: string): string {
     });
     return result.outputText;
 }
+
+const ts_string = process.argv[2];
+const js_string = transpileTypeScriptToJavaScript(ts_string);
+console.log(js_string);
