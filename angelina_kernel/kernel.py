@@ -1,5 +1,6 @@
 from ipykernel.kernelbase import Kernel
 from selenium import webdriver
+import subprocess
 import pprint
 
 
@@ -58,17 +59,24 @@ class Angelina(Kernel):
                     {"name": "stdout", "text": f"{type(code)}"},
                 )
 
-            elif not silent:
-                result = self.driver.execute_cdp_cmd(
+            else:
+                transpiled_code = subprocess.check_output(
+                    ["ts-node", "angelina_kernel/misc/transpile.ts", code]
+                ).decode("utf-8")
+                result = self.driver.execute_cdp_cmd(  # most important line
                     "Runtime.evaluate",
                     {
-                        "expression": code,
+                        "expression": transpiled_code,
                         "userGesture": True,  # treated as if initiated by user in the UI
                         "replMode": True,  # const/let redaclarations allowed in repl mode
                     },
                 )
-                stream_content = {"name": "stdout", "text": f"{pprint.pformat(result)}"}
+                stream_content = {
+                    "name": "stdout",
+                    "text": f"{pprint.pformat(result)}",
+                }
                 self.send_response(self.iopub_socket, "stream", stream_content)
+
 
         except Exception as e:
             content = {"ename": type(e).__name__, "evalue": str(e), "traceback": []}
