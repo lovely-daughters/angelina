@@ -5,7 +5,7 @@ import pprint
 
 
 class Angelina(Kernel):
-    implementation = "Angelina"
+    implementation = "ange"
     implementation_version = "0.5.14"
     language = "javascript"
     language_version = "ES6"
@@ -34,12 +34,18 @@ class Angelina(Kernel):
         try:
             # shitty cell magicks
             if code.startswith(r"%tabs"):
+                tab_info = []
+                for idx, handle in enumerate(self.driver.window_handles):
+                    self.driver.switch_to.window(handle)
+                    tab_title = self.driver.title
+                    tab_info.append(f"{idx:02d} - {tab_title}")
+
                 self.send_response(
                     self.iopub_socket,
                     "stream",
                     {
                         "name": "stdout",
-                        "text": f"{pprint.pformat(self.driver.window_handles)}",
+                        "text": "\n".join(tab_info),
                     },
                 )
 
@@ -61,7 +67,11 @@ class Angelina(Kernel):
 
             else:
                 transpiled_code = subprocess.check_output(
-                    ["ts-node", "angelina_kernel/misc/transpile.ts", code]
+                    [
+                        "ts-node",
+                        "/Users/elim-mbp-01/Documents/angelina/angelina_kernel/misc/transpile.ts",
+                        code,
+                    ]
                 ).decode("utf-8")
                 result = self.driver.execute_cdp_cmd(  # most important line
                     "Runtime.evaluate",
@@ -76,7 +86,6 @@ class Angelina(Kernel):
                     "text": f"{pprint.pformat(result)}",
                 }
                 self.send_response(self.iopub_socket, "stream", stream_content)
-
 
         except Exception as e:
             content = {"ename": type(e).__name__, "evalue": str(e), "traceback": []}

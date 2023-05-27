@@ -21,8 +21,11 @@ userGesture allows persistence of declarations
 replMode allows const/let redeclaration which is an essential part of the notebook experience
 
 ```
-# Hooking up w. Angelina (Kernel)
-jupyter kernelspec install . --replace --name angelina
+# Hardlinking Angelina
+
+
+# Hooking up w. Angelina
+jupyter kernelspec install ./angelina_kernel/kernelspec --replace --name angelina
 jupyter kernelspec list
 jupyter notebook
 
