@@ -13,6 +13,11 @@ I've tried the ijavascript kernel paired with chrome-remote-interface, however t
 AFAIK, there isn't anything that works, so this is my attempt to create one.
 
 ```
+# Hooking up w. Angelina (Hooking up the Angelina Kernel)
 jupyter kernelspec install . --replace --name angelina
 jupyter kernelspec list
+jupyter notebook
+
+# Starting browser in remote debug mode
+"Google Chrome" --remote-debugging-port=9222
 ```

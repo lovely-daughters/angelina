@@ -1,5 +1,8 @@
 from ipykernel.kernelbase import Kernel
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 
+import pprint
 
 class Angelina(Kernel):
     implementation = "Angelina"
@@ -12,14 +15,33 @@ class Angelina(Kernel):
         "file_extension": ".js",
     }
     banner = "Angelina Ajimu"
-
+    
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        
+        options = webdriver.ChromeOptions()
+        options.debugger_address = "localhost:9222"
+        self.driver = webdriver.Chrome(options=options)
+        self.sanity = "0"
+    
+    def pformat(self, obj):
+        return pprint.pformat(obj)
+        
     def do_execute(
-        self, code, silent, store_history=True, user_expressions=None, allow_stdin=False
+        self, code: str, silent, store_history=True, user_expressions=None, allow_stdin=False
     ):
-        if not silent:
-            # stream_content = {"name": "stdout", "text": code}
-            # self.send_response(self.iopub_socket, "stream", stream_content)
-            stream_content = {"name": "stdout", "text": "😭SUZU😭"}
+        # shitty cell magicks
+        if code.startswith(r"%tabs"):
+            self.send_response(self.iopub_socket, "stream", {"name": "stdout", "text": f"{self.pformat(self.driver.window_handles)}"})
+        elif code.startswith(r"%switch"):
+            tab_num = int(code.split(" ").pop())
+            self.driver.switch_to.window(self.driver.window_handles[tab_num])
+            self.send_response(self.iopub_socket, "stream", {"name": "stdout", "text": f"SWITCHED TO TAB: {tab_num}"})
+        elif code.startswith(r"%type"):
+            self.send_response(self.iopub_socket, "stream", {"name": "stdout", "text": type(code)})
+        elif not silent:
+            stream_content = {"name": "stdout", "text": f"😭 {self.sanity}"}
             self.send_response(self.iopub_socket, "stream", stream_content)
 
         return {
@@ -29,3 +51,4 @@ class Angelina(Kernel):
             "payload": [],
             "user_expressions": {},
         }
+        
