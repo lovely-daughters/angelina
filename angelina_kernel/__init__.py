@@ -1,1 +1,1 @@
-from kernel import Angelina
+from .kernel import Angelina

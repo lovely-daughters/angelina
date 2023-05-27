@@ -14,7 +14,5 @@ AFAIK, there isn't anything that works, so this is my attempt to create one.
 
 ```
 jupyter kernelspec install . --replace --name angelina
-
-
 jupyter kernelspec list
 ```
