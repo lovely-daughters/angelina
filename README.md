@@ -1,6 +1,6 @@
 # Angelina
 
-This is a custom jupyter kernel tailored for vanilla-js web development (chrome extensions are my specific usecase)
+This is a custom jupyter kernel tailored for vanilla-js web development (chrome extensions are my specific usecase).
 
 Jupyter notebooks are a huge timesaver that allow me to iteratively build up solutions.
 
@@ -12,7 +12,6 @@ I've tried the ijavascript kernel paired with chrome-remote-interface, however t
 
 AFAIK, there isn't anything that works, so this is my attempt to create one.
 
-CDP FTW
 https://chromedevtools.github.io/devtools-protocol/tot/Runtime/#method-evaluate
 userGesture - Whether execution should be treated as initiated by user in the UI.
 replMode - Setting this flag to true enables let re-declaration and top-level await. Note that let variables can only be re-declared if they originate from replMode themselves. EXPERIMENTAL
@@ -21,10 +20,7 @@ userGesture allows persistence of declarations
 replMode allows const/let redeclaration which is an essential part of the notebook experience
 
 ```
-# Hardlinking Angelina
-
-
-# Hooking up w. Angelina
+# Installing kernel
 jupyter kernelspec install ./angelina_kernel/kernelspec --replace --name angelina
 jupyter kernelspec list
 jupyter notebook
